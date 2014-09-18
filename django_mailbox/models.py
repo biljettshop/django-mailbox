@@ -31,6 +31,7 @@ from django_mailbox.signals import message_received
 from django_mailbox.transports import Pop3Transport, ImapTransport, \
     MaildirTransport, MboxTransport, BabylTransport, MHTransport, \
     MMDFTransport, GmailImapTransport
+from django.utils.timezone import now
 
 
 logger = logging.getLogger(__name__)
@@ -377,7 +378,10 @@ class Message(models.Model):
         related_name='messages',
         verbose_name=_(u'Mailbox'),
     )
-
+    date = models.DateTimeField(
+        auto_now_add=True,
+        default=now,
+    )
     subject = models.CharField(
         _(u'Subject'),
         max_length=255
