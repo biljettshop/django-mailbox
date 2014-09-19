@@ -184,6 +184,10 @@ class Mailbox(models.Model):
             return None
         return archive_folder[0]
 
+    @property
+    def delete_mail(self):
+        return self._query_string.get('delete', False)
+
     def get_connection(self):
         if not self.uri:
             return None
@@ -192,7 +196,8 @@ class Mailbox(models.Model):
                 self.location,
                 port=self.port if self.port else None,
                 ssl=self.use_ssl,
-                archive=self.archive
+                archive=self.archive,
+                delete_mail=self.delete_mail
             )
             conn.connect(self.username, self.password)
         elif self.type == 'gmail':

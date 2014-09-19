@@ -8,3 +8,6 @@ docs/_build/*
 include/*
 .Python
 *egg*
+.pydevproject
+.project
+.settings
